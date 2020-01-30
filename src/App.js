@@ -6,8 +6,10 @@ import Header from './components/Header';
 import SearchResults from './components/SearchResults'; 
 import Recipes from './components/Recipes'; 
 import Shopping from './components/Shopping'; 
+import Pagination from './components/Pagination'; 
 
 class App extends Component {
+  static defaultProps = { resultsPerPage: 10 }
   constructor () {
     super()
     this.state = { 
@@ -16,10 +18,10 @@ class App extends Component {
       isLoadingSearch: false, 
       numOfResults: 0, 
       currentPage: 1, 
-      resultsPerPage: 10
     }
     this.handleClick = this.handleClick.bind(this); 
     this.getCurrentPosts = this.getCurrentPosts.bind(this); 
+    this.handlePageButtonClick = this.handlePageButtonClick.bind(this); 
   }
 
   async getResults(query) {
@@ -27,7 +29,6 @@ class App extends Component {
     
     try {
       const response = await axios(`${url}q=${query}`);
-      console.log('request is working!')
       this.setState({
         isLoadingSearch: false, 
         recipes: response.data.recipes, 
@@ -44,9 +45,12 @@ class App extends Component {
   }
 
   getCurrentPosts () {
-      const indexOfLastPost = this.state.currentPage * this.state.resultsPerPage; //10
-      const indexOfFirstPost = indexOfLastPost - this.state.resultsPerPage; //0
-      const currentPosts = this.state.recipes.slice(indexOfFirstPost, indexOfLastPost);
+      let indexOfLastPost = this.state.currentPage * this.props.resultsPerPage; //10 20
+      console.log(`Index of last post: ${indexOfLastPost}`); 
+
+      let indexOfFirstPost = indexOfLastPost - this.props.resultsPerPage; //0 10
+      console.log(`Index of first post: ${indexOfFirstPost}`); 
+      let currentPosts = this.state.recipes.slice(indexOfFirstPost, indexOfLastPost);
   
       return currentPosts; 
   }
@@ -54,6 +58,24 @@ class App extends Component {
   handleClick (event) {
     this.setState( { isLoadingSearch: true } ); 
     this.getResults(event);   
+  }
+
+  handlePageButtonClick (event) {
+    console.log('I got clicked'); 
+    let btn = event.target.closest('.btn-inline').textContent; 
+    if (btn.includes("2")) {
+      this.setState( {currentPage: 2 }, () => {
+        this.setState({currentPosts: this.getCurrentPosts()})
+      } );
+    } else if (btn.includes("3")) {
+      this.setState( {currentPage: 3 }, () => {
+        this.setState({currentPosts: this.getCurrentPosts()})
+      } );
+    } else if (btn.includes("1")) {
+      this.setState( {currentPage: 1 }, () => {
+        this.setState({currentPosts: this.getCurrentPosts()})
+      } );
+    }   
   }
 
   render () {
@@ -64,6 +86,14 @@ class App extends Component {
          <SearchResults 
             spinner = {this.state.isLoadingSearch} 
             results = {this.state.currentPosts}
+            pagination = {
+              <Pagination 
+                totalPosts = {this.state.numOfResults} 
+                postsPerPage = {this.props.resultsPerPage}
+                page = {this.state.currentPage}
+                handlePageButtonClick = {this.handlePageButtonClick}
+              />
+            }
           />
          <Recipes />
          <Shopping />

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'; 
 import Result from './Result'; 
-import ResultsButtons from './ResultsButtons'; 
 import limitRecipeTitle from '../helpers/helper'; 
 
 
@@ -34,15 +33,6 @@ function ResultsList (props) {
     );
 }
 
-function ResultsPages (props) {
-  return (
-    <div className="results__pages">
-      <div>I'm the page buttons component!</div>
-      {/* <ResultsButtons /> */}
-    </div>
-  ); 
-}
-
 class SearchResults extends Component {
 
   render() {
@@ -50,6 +40,7 @@ class SearchResults extends Component {
       <div className="results"> 
         {this.props.spinner ? <Spinner /> : null}
         {this.props.results ? <ResultsList results = {this.props.results}/> : null}
+        {this.props.results ? this.props.pagination : null}
       </div>
     ); 
   }
