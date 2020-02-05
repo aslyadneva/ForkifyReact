@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-
-import axios from 'axios'; 
+// import { connect } from 'react-redux';
 
 import Header from './components/Header';
 import SearchResults from './components/SearchResults'; 
@@ -12,88 +11,85 @@ class App extends Component {
   static defaultProps = { resultsPerPage: 10 }
   constructor () {
     super()
+
     this.state = { 
-      recipes: null, 
-      currentPosts: null,
-      isLoadingSearch: false, 
       numOfResults: 0, 
       currentPage: 1, 
     }
-    this.handleClick = this.handleClick.bind(this); 
-    this.getCurrentPosts = this.getCurrentPosts.bind(this); 
-    this.handlePageButtonClick = this.handlePageButtonClick.bind(this); 
+
+    // this.handleClick = this.handleClick.bind(this); 
+    // this.getCurrentPosts = this.getCurrentPosts.bind(this); 
+    // this.handlePageButtonClick = this.handlePageButtonClick.bind(this); 
   }
 
-  async getResults(query) {
-    const url = 'https://forkify-api.herokuapp.com/api/search?'; 
+  // async getResults(query) {
+  //   const url = 'https://forkify-api.herokuapp.com/api/search?'; 
     
-    try {
-      const response = await axios(`${url}q=${query}`);
-      this.setState({
-        isLoadingSearch: false, 
-        recipes: response.data.recipes, 
-        numOfResults: response.data.recipes.length, 
-      });  
-      this.setState(prevState => ({
-        currentPosts: this.getCurrentPosts()
-      }))
+  //   try {
+  //     const response = await axios(`${url}q=${query}`);
+  //     this.setState({
+  //       isLoadingSearch: false, 
+  //       recipes: response.data.recipes, 
+  //       numOfResults: response.data.recipes.length, 
+  //     });  
+  //     this.setState(prevState => ({
+  //       currentPosts: this.getCurrentPosts()
+  //     }))
       
-    } catch (error) {
-        this.setState({isLoadingSearch: false});  
-        alert(error); 
-      }
-  }
+  //   } catch (error) {
+  //       this.setState({isLoadingSearch: false});  
+  //       alert(error); 
+  //     }
+  // }
 
-  getCurrentPosts () {
-      let indexOfLastPost = this.state.currentPage * this.props.resultsPerPage; //10 20
-      console.log(`Index of last post: ${indexOfLastPost}`); 
+  // getCurrentPosts () {
+  //     let indexOfLastPost = this.state.currentPage * this.props.resultsPerPage; //10 20
+  //     console.log(`Index of last post: ${indexOfLastPost}`); 
 
-      let indexOfFirstPost = indexOfLastPost - this.props.resultsPerPage; //0 10
-      console.log(`Index of first post: ${indexOfFirstPost}`); 
-      let currentPosts = this.state.recipes.slice(indexOfFirstPost, indexOfLastPost);
+  //     let indexOfFirstPost = indexOfLastPost - this.props.resultsPerPage; //0 10
+  //     console.log(`Index of first post: ${indexOfFirstPost}`); 
+  //     let currentPosts = this.state.recipes.slice(indexOfFirstPost, indexOfLastPost);
   
-      return currentPosts; 
-  }
+  //     return currentPosts; 
+  // }
 
-  handleClick (event) {
-    this.setState( { isLoadingSearch: true } ); 
-    this.getResults(event);   
-  }
+  // handleClick (event) {
+  //   this.setState( { isLoadingSearch: true } ); 
+  //   this.getResults(event);   
+  // }
 
-  handlePageButtonClick (event) {
-    console.log('I got clicked'); 
-    let btn = event.target.closest('.btn-inline').textContent; 
-    if (btn.includes("2")) {
-      this.setState( {currentPage: 2 }, () => {
-        this.setState({currentPosts: this.getCurrentPosts()})
-      } );
-    } else if (btn.includes("3")) {
-      this.setState( {currentPage: 3 }, () => {
-        this.setState({currentPosts: this.getCurrentPosts()})
-      } );
-    } else if (btn.includes("1")) {
-      this.setState( {currentPage: 1 }, () => {
-        this.setState({currentPosts: this.getCurrentPosts()})
-      } );
-    }   
-  }
+  // handlePageButtonClick (event) { 
+  //   console.log('I got clicked'); 
+  //   let btn = event.target.closest('.btn-inline').textContent; 
+  //   if (btn.includes("2")) {
+  //     this.setState( {currentPage: 2 }, () => {
+  //       this.setState({currentPosts: this.getCurrentPosts()})
+  //     } );
+  //   } else if (btn.includes("3")) {
+  //     this.setState( {currentPage: 3 }, () => {
+  //       this.setState({currentPosts: this.getCurrentPosts()})
+  //     } );
+  //   } else if (btn.includes("1")) {
+  //     this.setState( {currentPage: 1 }, () => {
+  //       this.setState({currentPosts: this.getCurrentPosts()})
+  //     } );
+  //   }   
+  // }
 
   render () {
       
     return (
       <div className="container">
-         <Header handleClick = {this.handleClick}/>
+         <Header/>
          <SearchResults 
-            spinner = {this.state.isLoadingSearch} 
-            results = {this.state.currentPosts}
-            pagination = {
-              <Pagination 
-                totalPosts = {this.state.numOfResults} 
-                postsPerPage = {this.props.resultsPerPage}
-                page = {this.state.currentPage}
-                handlePageButtonClick = {this.handlePageButtonClick}
-              />
-            }
+            // pagination = {
+            //   <Pagination 
+            //     totalPosts = {this.state.numOfResults} 
+            //     postsPerPage = {this.props.resultsPerPage}
+            //     page = {this.state.currentPage}
+            //     handlePageButtonClick = {this.handlePageButtonClick}
+            //   />
+            // }
           />
          <Recipes />
          <Shopping />
@@ -109,5 +105,8 @@ class App extends Component {
   }
   
 }
+
+
+
 
 export default App;

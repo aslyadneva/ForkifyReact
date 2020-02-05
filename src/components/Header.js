@@ -8,7 +8,7 @@ class Header extends Component {
 
         <img src="img/logo.png" alt="Logo" className="header__logo"/>
 
-        <Form handleClick = {this.props.handleClick} />
+        <Form/>
         
         <div className="likes">
             <div className="likes__field">

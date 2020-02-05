@@ -1,9 +1,10 @@
 import React, { Component } from 'react'; 
 import Result from './Result'; 
 import limitRecipeTitle from '../helpers/helper'; 
+import { connect } from 'react-redux';
 
 
-function Spinner (props) {
+function Spinner () {
   return (
     <div className='loader'>
       <svg>
@@ -14,6 +15,7 @@ function Spinner (props) {
 }
 
 function ResultsList (props) {
+
   let resultsArr = props.results.map(result => {
     return (
       <Result
@@ -35,15 +37,19 @@ function ResultsList (props) {
 
 class SearchResults extends Component {
 
-  render() {
+  render() { 
     return (
       <div className="results"> 
-        {this.props.spinner ? <Spinner /> : null}
-        {this.props.results ? <ResultsList results = {this.props.results}/> : null}
-        {this.props.results ? this.props.pagination : null}
+        {this.props.isLoading ? <Spinner /> : null}
+        {this.props.recipes ? <ResultsList results = {this.props.recipes}/> : null}
+        {/* {this.props.results ? this.props.pagination : null} */}
       </div>
     ); 
   }
 }
 
-export default SearchResults; 
+const mapStateToProps = state => {
+  return { recipes: state.results.recipes, isLoading: state.results.isLoading }
+}
+
+export default connect (mapStateToProps)(SearchResults); 

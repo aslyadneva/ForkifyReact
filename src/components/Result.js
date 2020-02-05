@@ -1,9 +1,19 @@
 import React, {Component} from 'react'; 
+import { connect } from 'react-redux';
+import { selectRecipe } from '../actions'; 
 
 class Result extends Component {
+  constructor(props) {
+    super(props); 
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick (event) {
+    event.preventDefault();
+    this.props.selectRecipe(this.props.id)
+  }
   render () {
     return(
-      <li>
+      <li onClick = {this.handleClick}>
         <a className="results__link" href={this.props.id}>
           <figure className="results__fig">
             <img src={this.props.image} alt={this.props.name}/>
@@ -18,4 +28,4 @@ class Result extends Component {
   }
 }
 
-export default Result; 
+export default connect(null, {selectRecipe})(Result); 
