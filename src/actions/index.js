@@ -35,6 +35,17 @@ export function selectRecipe (id) {
   }
 }
 
+export function nextPage () {
+  return {
+    type: "NEXT_PAGE"
+  }
+}
+
+export function prevPage () {
+  return {
+    type: 'PREVIOUS_PAGE'
+  }
+}
 
 
 

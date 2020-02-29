@@ -1,47 +1,59 @@
-import React, {Fragment} from 'react';
+import React, {Component, Fragment} from 'react';
 import ResultsButton from './ResultsButton'; 
+import { connect } from 'react-redux';
+import { nextPage, prevPage } from '../actions'; 
 
-const Pagination = (props) => {
 
-  const pages = Math.ceil(props.totalPosts/props.postsPerPage); 
+class Pagination extends Component {
 
-  let button; 
-  if (props.page === 1 && pages > 1) { //if on page 1
-    button = <ResultsButton 
-                number = {props.page + 1} 
-                type = "next" 
-                handleClick = {props.handlePageButtonClick}
-                direction = 'right'
-              />;
-  } else if (props.page < pages) { //if on page 2
-    button = <Fragment>
-      <ResultsButton 
-        number = {props.page - 1} 
-        type ='prev'
-        handleClick = {props.handlePageButtonClick}
-        direction = 'left'
-      />
-      <ResultsButton 
-        number = {props.page + 1} 
-        type="next" 
-        handleClick={props.handlePageButtonClick}
-        direction = 'right'
-      />
-      </Fragment>;
-  } else if (props.page === pages && pages > 1){ //if on page 3 
-    button = <ResultsButton 
-                number = {props.page - 1} 
-                type='prev'
-                handleClick={props.handlePageButtonClick}
-                direction = 'left'
-              />;
+  handlePageButtonClick = (event) => { 
+   
+      let btn = event.target.closest('.btn-inline').textContent; 
+
+      if (btn.includes("2") && this.props.currentPage === 3) {
+        this.props.prevPage()
+      }
+      else if (btn.includes("2")) {
+        this.props.nextPage()
+      } 
+      else if (btn.includes("3")) {
+        this.props.nextPage()
+      } 
+      else if (btn.includes("1")) {
+        this.props.prevPage()
+      }   
+  }
+  
+  renderButton () {
+    const { currentPage, pages } = this.props; 
+    if (currentPage === 1 && pages > 1) { //if on page 1
+      return (
+        <ResultsButton number = {currentPage + 1} type = "next" handleClick = {this.handlePageButtonClick} direction = 'right'/>
+      );
+    } else if (currentPage < pages) { //if on page 2
+      return (
+        <Fragment>
+          <ResultsButton number = {currentPage - 1} type ='prev' handleClick = {this.handlePageButtonClick} direction = 'left'/>
+          <ResultsButton number = {currentPage + 1} type="next" handleClick={this.handlePageButtonClick} direction = 'right'/>
+        </Fragment>
+      );     
+    } else if (currentPage === pages && pages > 1){ //if on page 3 
+      return (
+        <ResultsButton number = {currentPage - 1} type='prev' handleClick={this.handlePageButtonClick} direction = 'left'/>);
+    }      
   }
 
-  return (
-    <div className="results__pages">
-     {button}
-    </div>
-  ); 
+  render() {
+    return (
+      <div className="results__pages">
+       {this.renderButton()}
+      </div>
+    );
+  }  
 }
 
-export default Pagination; 
+const mapStateToProps = state => {
+  return { recipes: state.results.recipes, currentPage: state.currentPage }
+}
+
+export default connect (mapStateToProps, { nextPage, prevPage })(Pagination); 

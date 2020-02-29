@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 class ResultsButton extends Component {
 
-  render () {
+  render () { 
     return (
       <button 
         onClick = {this.props.handleClick} 

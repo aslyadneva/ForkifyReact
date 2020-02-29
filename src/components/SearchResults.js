@@ -1,8 +1,7 @@
 import React, { Component } from 'react'; 
-import Result from './Result'; 
-import limitRecipeTitle from '../helpers/helper'; 
 import { connect } from 'react-redux';
 
+import ResultsList from './ResultsList'; 
 
 function Spinner () {
   return (
@@ -14,35 +13,13 @@ function Spinner () {
   ); 
 }
 
-function ResultsList (props) {
-
-  let resultsArr = props.results.map(result => {
-    return (
-      <Result
-        image = {result.image_url}
-        author = {result.publisher}
-        name = {limitRecipeTitle(result.title)}
-        id = {result.recipe_id}
-        key = {result.recipe_id}
-      />
-    );  
-  });
-    
-    return (
-      <ul className="results__list">
-        {resultsArr}
-      </ul>  
-    );
-}
-
 class SearchResults extends Component {
-
   render() { 
+    const { recipes, isLoading } = this.props; 
     return (
       <div className="results"> 
-        {this.props.isLoading ? <Spinner /> : null}
-        {this.props.recipes ? <ResultsList results = {this.props.recipes}/> : null}
-        {/* {this.props.results ? this.props.pagination : null} */}
+        {isLoading ? <Spinner /> : null}
+        {recipes ? <ResultsList/> : null}
       </div>
     ); 
   }

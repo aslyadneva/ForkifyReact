@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Form from './Form'; 
 
 class Header extends Component {
-  render() {
+  render() { 
     return (
       <header className="header">
 

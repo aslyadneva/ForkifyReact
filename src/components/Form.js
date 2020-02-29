@@ -5,7 +5,7 @@ import { fetchRecipes } from '../actions';
 
 
 class Form extends Component {
-
+ 
   onSubmit = (formValues) =>{
     
     this.props.fetchRecipes(formValues.search);

@@ -1,6 +1,6 @@
 const initialState = {
   isLoading: false, 
-  recipes: null
+  recipes: null, 
 }
 export default function(state = initialState, action) {
   switch (action.type) {
