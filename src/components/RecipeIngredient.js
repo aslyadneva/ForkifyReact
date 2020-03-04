@@ -12,7 +12,7 @@ class RecipeIngredient extends Component {
         <div className="recipe__count">{item.count}</div>
         <div className="recipe__ingredient">
           <span className="recipe__unit">{item.unit}</span>
-          {item.ingredient}
+          {` ${item.ingredient}`}
         </div>
       </li>
     );

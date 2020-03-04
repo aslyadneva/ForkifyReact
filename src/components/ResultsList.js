@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import Result from './Result'; 
 import Pagination from './Pagination'; 
-import limitRecipeTitle from '../helpers/helper'; 
+import {limitRecipeTitle} from '../helpers/helper'; 
 
 const ResultsList = ({ recipes, currentPage }) => {
 

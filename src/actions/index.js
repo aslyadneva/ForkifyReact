@@ -1,5 +1,5 @@
 import axios from 'axios'; 
-import { RESULTS_SPINNER, RECIPE_SPINNER, FETCH_RECIPES, FETCH_RECIPE } from './types'; 
+import { RESULTS_SPINNER, RECIPE_SPINNER, FETCH_RECIPES, FETCH_RECIPE, CHANGE_SERVING } from './types'; 
 
 
 // this is for showing a spinner while a request is fetching 
@@ -13,7 +13,7 @@ function showRecipeSpinner () {
   return {
     type: RECIPE_SPINNER
   }
-}
+} 
 
 export function fetchRecipes (query) { 
 
@@ -36,6 +36,18 @@ export function selectRecipe (id) {
 
     dispatch({ type: FETCH_RECIPE, payload: result.data.recipe }) 
   }
+}
+
+export function changeServings (type) { 
+
+  return function (dispatch, getState) {
+    const { selectedRecipe } = getState(); 
+    
+    dispatch({
+      type: CHANGE_SERVING, 
+      payload: {selectedRecipe, type}
+    }) 
+  } 
 }
 
 export function nextPage () {
