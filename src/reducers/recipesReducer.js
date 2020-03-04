@@ -1,15 +1,17 @@
+import { RESULTS_SPINNER, FETCH_RECIPES } from '../actions/types'; 
+
 const initialState = {
   isLoading: false, 
-  recipes: null, 
-}
+  recipes: null,  
+} 
 export default function(state = initialState, action) {
   switch (action.type) {
 
-    case 'REQUEST_RECIPES': 
+    case RESULTS_SPINNER: 
       return {...initialState, isLoading: true}
 
-    case 'FETCH_RECIPES': 
-      return {...initialState, isLoading: false, recipes: action.payload}
+    case FETCH_RECIPES: 
+      return {...initialState, recipes: action.payload}
 
     default: 
       return state; 

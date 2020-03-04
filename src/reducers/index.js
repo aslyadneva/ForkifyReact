@@ -7,7 +7,7 @@ import selectedRecipeReducer from './selectedRecipeReducer';
 
 export default combineReducers({
   form: formReducer, 
-  results: recipesReducer, 
+  results: recipesReducer,  
   currentPage: pageReducer,
   selectedRecipe: selectedRecipeReducer
 }); 

@@ -4,7 +4,7 @@ import { selectRecipe } from '../actions';
 
 class Result extends Component {
   constructor(props) {
-    super(props); 
+    super(props);  
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick (event) {

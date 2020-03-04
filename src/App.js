@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 
 import Header from './components/Header';
 import SearchResults from './components/SearchResults'; 
-import Recipes from './components/Recipes'; 
+import Recipe from './components/Recipe'; 
 import Shopping from './components/Shopping'; 
 
 
@@ -12,11 +12,11 @@ class App extends Component {
 
   render () {
       
-    return (
+    return ( 
       <div className="container">
          <Header/>
          <SearchResults />
-         <Recipes />
+         <Recipe />
          <Shopping />
  
  
