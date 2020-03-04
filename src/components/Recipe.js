@@ -4,6 +4,14 @@ import { connect } from 'react-redux';
 import { changeServings } from '../actions'; 
 
 class Recipe extends Component {
+
+    handleClick (type) {
+        if (type === 'decrease' && this.props.recipe.servings > 1) {
+            this.props.changeServings(type)
+        } else if (type === 'increase') {
+            this.props.changeServings(type); 
+        }    
+    }
    
     renderSpinner (isRecipeLoading) {
         if(isRecipeLoading) {
@@ -50,14 +58,14 @@ class Recipe extends Component {
       
                      <div className="recipe__info-buttons">
                         {/* Decrease Servings Button */}
-                         <button onClick = {() => this.props.changeServings('decrease')}className="btn-tiny">
+                         <button onClick = {() => this.handleClick('decrease')}className="btn-tiny">
                              <svg>
                                  <use href="img/icons.svg#icon-circle-with-minus"></use>
                              </svg>
                          </button>
 
                         {/* Increase Servings Button*/}
-                         <button onClick = {() => this.props.changeServings('increase')} className="btn-tiny">
+                         <button onClick = {() => this.handleClick('increase')} className="btn-tiny">
                              <svg>
                                <use href="img/icons.svg#icon-circle-with-plus"></use>
                              </svg>
