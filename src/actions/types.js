@@ -5,3 +5,4 @@ export const FETCH_RECIPE = 'FETCH_RECIPE';
 export const CHANGE_SERVING = "CHANGE_SERVING" 
 export const ADD_TO_SHOPPING = 'ADD_TO_SHOPPING'
 export const DELETE_ITEM = "DELETE_ITEM"; 
+export const EDIT_COUNT = "EDIT_COUNT"; 

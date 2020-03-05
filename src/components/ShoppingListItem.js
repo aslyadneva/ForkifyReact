@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'; 
-import { deleteShoppingListItem} from '../actions'; 
+import { deleteShoppingListItem, editItemCount} from '../actions'; 
 
 class ShoppingListItem extends Component {
+    handleChange = (event) => {
+        this.props.editItemCount(parseFloat(event.target.value, 10), this.props.id); 
+    }
 
     render () {
         const {count, unit, ingredient, id} = this.props;
@@ -10,7 +13,7 @@ class ShoppingListItem extends Component {
             <li className="shopping__item">
 
                 <div className="shopping__count">
-                    <input type="number" defaultValue={count} step="100"/>
+                    <input type="number" min="1" value={count} step="1" onChange={this.handleChange}/>
                     <p>{unit}</p>
                 </div>
 
@@ -26,4 +29,4 @@ class ShoppingListItem extends Component {
     }    
 }
 
-export default connect (null, { deleteShoppingListItem})(ShoppingListItem); 
+export default connect (null, { deleteShoppingListItem, editItemCount})(ShoppingListItem); 

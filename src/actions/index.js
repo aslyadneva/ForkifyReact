@@ -5,7 +5,9 @@ import {
   FETCH_RECIPES, 
   FETCH_RECIPE, 
   CHANGE_SERVING, 
-  ADD_TO_SHOPPING, DELETE_ITEM } from './types'; 
+  ADD_TO_SHOPPING, 
+  DELETE_ITEM, 
+  EDIT_COUNT} from './types'; 
  
 
 // this is for showing a spinner while a request is fetching 
@@ -84,6 +86,15 @@ export function deleteShoppingListItem (id) {
     const { shoppingList } = getState(); 
 
     dispatch({type: DELETE_ITEM, payload: { shoppingList: shoppingList, id: id} } )   
+  }
+}
+
+export function editItemCount (value, id) {
+  return function (dispatch, getState){
+
+    const { shoppingList } = getState(); 
+
+    dispatch({type: EDIT_COUNT, payload: { shoppingList: shoppingList, id: id, value: value} } )   
   }
 }
 
