@@ -1,9 +1,14 @@
 import React, {Component, Fragment} from 'react';
 import RecipeIngredient from './RecipeIngredient'; 
 import { connect } from 'react-redux'; 
-import { changeServings } from '../actions'; 
+import { changeServings, addToShoppingList } from '../actions'; 
+import uniqid from 'uniqid'; 
 
 class Recipe extends Component {
+
+    handleAddClick = (idIngredients) => {
+        this.props.addToShoppingList(idIngredients); 
+    }
 
     handleClick (type) {
         if (type === 'decrease' && this.props.recipe.servings > 1) {
@@ -29,6 +34,10 @@ class Recipe extends Component {
 
   renderRecipe(recipe) {
         const { image, title, author, source, ingredients, servings, time } = recipe; 
+        const idIngredients = ingredients.map(ingredient => {
+            ingredient.id = uniqid();
+            return ingredient;
+        })
         return (
             <Fragment>
             <figure className="recipe__fig">
@@ -84,14 +93,14 @@ class Recipe extends Component {
              {/* RECIPE INGREDIENTS */}
              <div className="recipe__ingredients">
                  <ul className="recipe__ingredient-list">
-                     {ingredients.map(item => {
-                         return (
-                            <RecipeIngredient item ={item} key={item.ingredient}/>
+                     {idIngredients.map(item => {
+                         return ( 
+                            <RecipeIngredient item ={item} key={item.id}/>
                          );
                      })}                    
                  </ul>
       
-                 <button className="btn-small recipe__btn">
+                 <button onClick = {() => this.handleAddClick(idIngredients)} className="btn-small recipe__btn">
                      <svg className="search__icon">
                          <use href="img/icons.svg#icon-shopping-cart"></use>
                      </svg>
@@ -108,7 +117,7 @@ class Recipe extends Component {
                      <span className="recipe__by"> {author}</span>. Please check out directions at their website.
                  </p>
      
-                 <a className="btn-small recipe__btn" href={source} target="_blank">
+                 <a className="btn-small recipe__btn" href={source} target="_blank" rel="noopener noreferrer">
                      <span>Directions</span>
                      <svg className="search__icon">
                          <use href="img/icons.svg#icon-triangle-right"></use>
@@ -138,4 +147,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect (mapStateToProps, { changeServings })(Recipe); 
+export default connect (mapStateToProps, { changeServings, addToShoppingList })(Recipe); 

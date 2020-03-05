@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import Header from './components/Header';
 import SearchResults from './components/SearchResults'; 
 import Recipe from './components/Recipe'; 
-import Shopping from './components/Shopping'; 
+import ShoppingList from './components/ShoppingList'; 
 
 
 class App extends Component {
@@ -17,7 +17,7 @@ class App extends Component {
          <Header/>
          <SearchResults />
          <Recipe />
-         <Shopping />
+         <ShoppingList />
  
  
   

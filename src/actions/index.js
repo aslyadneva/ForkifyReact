@@ -1,6 +1,12 @@
 import axios from 'axios'; 
-import { RESULTS_SPINNER, RECIPE_SPINNER, FETCH_RECIPES, FETCH_RECIPE, CHANGE_SERVING } from './types'; 
-
+import { 
+  RESULTS_SPINNER, 
+  RECIPE_SPINNER, 
+  FETCH_RECIPES, 
+  FETCH_RECIPE, 
+  CHANGE_SERVING, 
+  ADD_TO_SHOPPING, DELETE_ITEM } from './types'; 
+ 
 
 // this is for showing a spinner while a request is fetching 
 function showResultsSpinner () {
@@ -59,6 +65,25 @@ export function nextPage () {
 export function prevPage () {
   return {
     type: 'PREVIOUS_PAGE'
+  }
+}
+
+export function addToShoppingList (ingredients) {
+
+  return function (dispatch, getState) {
+    const { shoppingList } = getState();
+    
+
+    dispatch({type: ADD_TO_SHOPPING, payload: {prevState: shoppingList, newIngredients: ingredients}})
+  }
+}
+
+export function deleteShoppingListItem (id) {
+  return function (dispatch, getState){
+
+    const { shoppingList } = getState(); 
+
+    dispatch({type: DELETE_ITEM, payload: { shoppingList: shoppingList, id: id} } )   
   }
 }
 

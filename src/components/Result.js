@@ -8,7 +8,7 @@ class Result extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick (event) {
-    event.preventDefault();
+    event.preventDefault(); 
     this.props.selectRecipe(this.props.id)
   }
   render () {
