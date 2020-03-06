@@ -42,6 +42,7 @@ export function selectRecipe (id) {
     dispatch(showRecipeSpinner())
 
     const result = await axios.get(`https://forkify-api.herokuapp.com/api/get?rId=${id}`); 
+    console.log(result.data.recipe); 
 
     dispatch({ type: FETCH_RECIPE, payload: result.data.recipe }) 
   }

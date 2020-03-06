@@ -23,6 +23,8 @@ class Recipe extends Component {
         } else {
             this.props.likeRecipe(this.props.recipe); 
         }     
+
+        localStorage.setItem('likes', this.props.likedRecipes); 
     }
 
     handleAddClick = (idIngredients) => {

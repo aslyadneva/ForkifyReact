@@ -1,17 +1,20 @@
 import React, {Component} from 'react'; 
+import { connect } from 'react-redux'; 
+import { selectRecipe } from '../actions'; 
 
 class LikedRecipe extends Component {
   render () {
+    const {id, title, author, image } = this.props; 
     return (
-      <li>
+      <li onClick={()=> this.props.selectRecipe(id)}>
         <a className="likes__link" href="#">
           <figure className="likes__fig">
-              <img src={this.props.image} alt={this.props.title}/>
+              <img src={image} alt={title}/>
           </figure>
 
           <div className="likes__data">
-              <h4 className="likes__name">{this.props.title}</h4>
-              <p className="likes__author">{this.props.author}</p>
+              <h4 className="likes__name">{title}</h4>
+              <p className="likes__author">{author}</p>
           </div>
         </a>
       </li>
@@ -19,4 +22,4 @@ class LikedRecipe extends Component {
   }
 }
 
-export default LikedRecipe; 
+export default connect (null, { selectRecipe})(LikedRecipe); 

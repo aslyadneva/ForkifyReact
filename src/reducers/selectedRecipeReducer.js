@@ -2,6 +2,7 @@ import { RECIPE_SPINNER, FETCH_RECIPE, CHANGE_SERVING } from '../actions/types';
 import { parseIngredients } from '../helpers/helper'; 
 
 const initialState = {
+  id: null, 
   image: null, 
   title: null, 
   ingredients: null, 
@@ -27,6 +28,7 @@ export default function(state = initialState, action) {
 
       return {
         ...initialState, 
+        id: selectedRecipe.recipe_id,
         image: selectedRecipe.image_url, 
         title: selectedRecipe.title, 
         ingredients: parseIngredients(selectedRecipe.ingredients), 

@@ -34,6 +34,7 @@ class Header extends Component {
                     {likedRecipes.map(recipe => {
                 return (
                     <LikedRecipe 
+                        id= {recipe.id}
                         key= {recipe.title}
                         title={recipe.title} 
                         image={recipe.image} 
