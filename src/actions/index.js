@@ -7,7 +7,8 @@ import {
   CHANGE_SERVING, 
   ADD_TO_SHOPPING, 
   DELETE_ITEM, 
-  EDIT_COUNT} from './types'; 
+  EDIT_COUNT, 
+  LIKE_RECIPE, UNLIKE_RECIPE} from './types'; 
  
 
 // this is for showing a spinner while a request is fetching 
@@ -95,6 +96,24 @@ export function editItemCount (value, id) {
     const { shoppingList } = getState(); 
 
     dispatch({type: EDIT_COUNT, payload: { shoppingList: shoppingList, id: id, value: value} } )   
+  }
+}
+
+export function likeRecipe (recipe) {
+  return function (dispatch, getState){
+
+    const { likedRecipes } = getState(); 
+
+    dispatch({type: LIKE_RECIPE, payload: {currentLikes: likedRecipes, recipe: recipe} } )   
+  }
+}
+
+export function unlikeRecipe (recipe) {
+  return function (dispatch, getState){
+
+    const { likedRecipes } = getState(); 
+
+    dispatch({type: UNLIKE_RECIPE, payload: {currentLikedRecipes: likedRecipes, unLikedRecipe: recipe} } )   
   }
 }
 

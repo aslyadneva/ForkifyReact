@@ -1,10 +1,29 @@
 import React, {Component, Fragment} from 'react';
 import RecipeIngredient from './RecipeIngredient'; 
 import { connect } from 'react-redux'; 
-import { changeServings, addToShoppingList } from '../actions'; 
+import { changeServings, addToShoppingList, likeRecipe, unlikeRecipe } from '../actions'; 
 import uniqid from 'uniqid'; 
 
 class Recipe extends Component {
+
+    isLiked (likedRecipes, title) {
+        // find out if this recipe is in the likedRecipes array 
+        const isLiked = likedRecipes.find(recipe => recipe.title === title)
+
+        if (isLiked) {
+            return true 
+        } else {
+            return false 
+        }
+    }
+
+    handleLikeClick = () => {
+        if (this.isLiked(this.props.likedRecipes, this.props.recipe.title)) {
+            this.props.unlikeRecipe(this.props.recipe); 
+        } else {
+            this.props.likeRecipe(this.props.recipe); 
+        }     
+    }
 
     handleAddClick = (idIngredients) => {
         this.props.addToShoppingList(idIngredients); 
@@ -32,12 +51,13 @@ class Recipe extends Component {
         }       
     }
 
-  renderRecipe(recipe) {
+  renderRecipe(recipe, likedRecipes) {
         const { image, title, author, source, ingredients, servings, time } = recipe; 
         const idIngredients = ingredients.map(ingredient => {
             ingredient.id = uniqid();
             return ingredient;
         })
+
         return (
             <Fragment>
             <figure className="recipe__fig">
@@ -82,9 +102,10 @@ class Recipe extends Component {
                      </div>
                  </div>
      
-                 <button className="recipe__love">
+                {/* Like Button*/}
+                 <button className="recipe__love" onClick={this.handleLikeClick}>
                      <svg className="header__likes">
-                         <use href="img/icons.svg#icon-heart-outlined"></use>
+                         <use href={`img/icons.svg#icon-heart${this.isLiked(likedRecipes, title) ? '' : '-outlined'}`}></use>
                      </svg>
                  </button>
      
@@ -131,20 +152,22 @@ class Recipe extends Component {
   }  
 
   render () {
-    const { recipe, isRecipeLoading } = this.props; 
+    const { recipe, isRecipeLoading, likedRecipes } = this.props; 
     return (
     <div className="recipe">
-        {recipe.image ? this.renderRecipe(recipe) : this.renderSpinner(isRecipeLoading)}
+        {recipe.image ? this.renderRecipe(recipe, likedRecipes) : this.renderSpinner(isRecipeLoading)}
     </div>
    ); 
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
+
     return { 
         recipe: state.selectedRecipe, 
-        isRecipeLoading: state.selectedRecipe.isRecipeLoading
+        isRecipeLoading: state.selectedRecipe.isRecipeLoading, 
+        likedRecipes: state.likedRecipes
     }
 }
 
-export default connect (mapStateToProps, { changeServings, addToShoppingList })(Recipe); 
+export default connect (mapStateToProps, { changeServings, addToShoppingList, likeRecipe, unlikeRecipe })(Recipe); 

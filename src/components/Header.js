@@ -1,8 +1,20 @@
 import React, {Component} from 'react'; 
 import Form from './Form'; 
+import LikedRecipe from './LikedRecipe'; 
+import { connect } from 'react-redux'; 
 
 class Header extends Component {
-  render() { 
+
+    // renderLikedRecipes(likedRecipes) {
+    //     console.log('inside renderLikedRecipes')
+        
+            
+
+
+    // }
+
+  render() {
+      const { likedRecipes } = this.props; 
     return (
       <header className="header">
 
@@ -10,33 +22,38 @@ class Header extends Component {
 
         <Form/> 
         
-        <div className="likes">
+        <div className="likes" style={{visibility: likedRecipes[0] ? 'visible' : 'hidden'}}>
             <div className="likes__field">
                 <svg className="likes__icon">
                      <use href="img/icons.svg#icon-heart"></use>
-                </svg>
-         </div>
-        <div className="likes__panel">
-                    {/* <ul class="likes__list">
-                        
-                        <li>
-                            <a class="likes__link" href="#23456">
-                                <figure class="likes__fig">
-                                    <img src="img/test-1.jpg" alt="Test">
-                                </figure>
-                                <div class="likes__data">
-                                    <h4 class="likes__name">Pasta with Tomato ...</h4>
-                                    <p class="likes__author">The Pioneer Woman</p>
-                                </div>
-                            </a>
-                        </li>
-                       
-                    </ul> */}
+                </svg> 
+            </div>
+
+            <div className="likes__panel">
+                <ul className="likes__list">
+                    {likedRecipes.map(recipe => {
+                return (
+                    <LikedRecipe 
+                        key= {recipe.title}
+                        title={recipe.title} 
+                        image={recipe.image} 
+                        author={recipe.author}
+                    />
+                );
+            })}                      
+                </ul> 
+            </div>
         </div>
-        </div>
+
     </header>
     ); 
   }
 }
 
-export default Header; 
+const mapStateToProps = state => {
+    return {
+        likedRecipes: state.likedRecipes
+    }
+}
+
+export default connect(mapStateToProps)(Header); 

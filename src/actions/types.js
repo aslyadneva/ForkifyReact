@@ -6,3 +6,5 @@ export const CHANGE_SERVING = "CHANGE_SERVING"
 export const ADD_TO_SHOPPING = 'ADD_TO_SHOPPING'
 export const DELETE_ITEM = "DELETE_ITEM"; 
 export const EDIT_COUNT = "EDIT_COUNT"; 
+export const LIKE_RECIPE = "LIKE_RECIPE";
+export const UNLIKE_RECIPE = "UNLIKE_RECIPE"; 

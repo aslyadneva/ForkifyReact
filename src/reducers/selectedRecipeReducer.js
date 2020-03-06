@@ -9,7 +9,8 @@ const initialState = {
   author: null, 
   servings: 4,
   time: null, 
-  isRecipeLoading: false
+  isRecipeLoading: false,
+  isLiked: false 
 }
 
 export default function(state = initialState, action) {

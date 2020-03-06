@@ -4,6 +4,8 @@ import recipesReducer from './recipesReducer';
 import pageReducer from './pageReducer'; 
 import selectedRecipeReducer from './selectedRecipeReducer'; 
 import shoppingListReducer from './shoppingListReducer'; 
+import likesReducer from './likesReducer'; 
+
 
 
 export default combineReducers({
@@ -11,5 +13,6 @@ export default combineReducers({
   results: recipesReducer,  
   currentPage: pageReducer,
   selectedRecipe: selectedRecipeReducer, 
-  shoppingList: shoppingListReducer
-}); 
+  shoppingList: shoppingListReducer, 
+  likedRecipes: likesReducer
+});  
