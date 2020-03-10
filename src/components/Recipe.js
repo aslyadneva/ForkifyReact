@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import { changeServings, addToShoppingList, likeRecipe, unlikeRecipe } from '../actions'; 
 import uniqid from 'uniqid'; 
 
+
 class Recipe extends Component {
+   
+    
 
     isLiked (likedRecipes, title) {
         // find out if this recipe is in the likedRecipes array 
@@ -22,9 +25,8 @@ class Recipe extends Component {
             this.props.unlikeRecipe(this.props.recipe); 
         } else {
             this.props.likeRecipe(this.props.recipe); 
+            
         }     
-
-        localStorage.setItem('likes', this.props.likedRecipes); 
     }
 
     handleAddClick = (idIngredients) => {

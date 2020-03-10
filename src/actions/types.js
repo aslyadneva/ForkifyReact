@@ -8,3 +8,4 @@ export const DELETE_ITEM = "DELETE_ITEM";
 export const EDIT_COUNT = "EDIT_COUNT"; 
 export const LIKE_RECIPE = "LIKE_RECIPE";
 export const UNLIKE_RECIPE = "UNLIKE_RECIPE"; 
+export const LOAD_LOCAL = "LOAD_LOCAL"; 

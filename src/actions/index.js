@@ -1,4 +1,5 @@
 import axios from 'axios'; 
+import ls from 'local-storage'; 
 import { 
   RESULTS_SPINNER, 
   RECIPE_SPINNER, 
@@ -8,7 +9,7 @@ import {
   ADD_TO_SHOPPING, 
   DELETE_ITEM, 
   EDIT_COUNT, 
-  LIKE_RECIPE, UNLIKE_RECIPE} from './types'; 
+  LIKE_RECIPE, UNLIKE_RECIPE, LOAD_LOCAL } from './types'; 
  
 
 // this is for showing a spinner while a request is fetching 
@@ -41,8 +42,7 @@ export function selectRecipe (id) {
   return async function (dispatch) {
     dispatch(showRecipeSpinner())
 
-    const result = await axios.get(`https://forkify-api.herokuapp.com/api/get?rId=${id}`); 
-    console.log(result.data.recipe); 
+    const result = await axios.get(`https://forkify-api.herokuapp.com/api/get?rId=${id}`);  
 
     dispatch({ type: FETCH_RECIPE, payload: result.data.recipe }) 
   }
@@ -105,7 +105,11 @@ export function likeRecipe (recipe) {
 
     const { likedRecipes } = getState(); 
 
-    dispatch({type: LIKE_RECIPE, payload: {currentLikes: likedRecipes, recipe: recipe} } )   
+    dispatch({type: LIKE_RECIPE, payload: {currentLikes: likedRecipes, recipe: recipe} } ) 
+    
+    const newState = getState(); 
+    
+    ls.set('likes', JSON.stringify(newState.likedRecipes));
   }
 }
 
@@ -115,9 +119,19 @@ export function unlikeRecipe (recipe) {
     const { likedRecipes } = getState(); 
 
     dispatch({type: UNLIKE_RECIPE, payload: {currentLikedRecipes: likedRecipes, unLikedRecipe: recipe} } )   
+
+    const updatedState = getState();
+    
+    ls.set('likes', JSON.stringify(updatedState.likedRecipes));
   }
 }
 
+export function loadLocalStorageLikes (recipesArr) {
+  return {
+    type: LOAD_LOCAL, 
+    payload: recipesArr
+  }
+}
 
 
 

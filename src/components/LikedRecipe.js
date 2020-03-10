@@ -21,5 +21,9 @@ class LikedRecipe extends Component {
     ); 
   }
 }
-
-export default connect (null, { selectRecipe})(LikedRecipe); 
+const mapStateToProps = state => {
+  return {
+    likedRecipes: state.likedRecipes
+  }
+}
+export default connect (mapStateToProps, { selectRecipe })(LikedRecipe); 

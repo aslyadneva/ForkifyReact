@@ -1,4 +1,4 @@
-import { LIKE_RECIPE, UNLIKE_RECIPE } from '../actions/types'; 
+import { LIKE_RECIPE, UNLIKE_RECIPE, LOAD_LOCAL } from '../actions/types'; 
 
 export default function (state = [], action) {
   switch (action.type ) {
@@ -11,7 +11,10 @@ export default function (state = [], action) {
       const filteredArr = currentLikedRecipes.filter(item => item.title !== unLikedRecipe.title)
       return [...filteredArr ]
 
+    case LOAD_LOCAL: 
+      return [...action.payload]
+
     default:
-      return state 
+      return state  
   }
 }
